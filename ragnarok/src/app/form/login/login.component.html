@@ -1,0 +1,26 @@
+<div class="box">
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Human name</mat-label>
+      <input matInput  #inputField maxlength="10" placeholder="Username" [(ngModel)]="username" >
+      <mat-hint align="end">{{inputField.value.length}}/10</mat-hint>
+      <mat-icon matSuffix></mat-icon>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput #passwordField maxlength="10" type="{{passwordType}}" [(ngModel)]="password" placeholder="Password">
+      <mat-hint align="end">{{passwordField.value.length}}/10</mat-hint>
+      <button  matSuffix mat-icon-button aria-label="Clear" (click)="changePasswordField()">
+        <mat-icon *ngIf="passwordType" matSuffix>enhanced_encryption</mat-icon>
+        <mat-icon *ngIf="!passwordType" matSuffix>lock_open</mat-icon>
+      </button>
+    </mat-form-field>
+  </p>
+
+  <button (click)="addStoreUser()">Increment</button>
+
+  <div>Show UserName: {{ (auth$ | async) }}</div>
+
+</div>

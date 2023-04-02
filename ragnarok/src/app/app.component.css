@@ -1,0 +1,5 @@
+.container {
+  display: flex; /* or inline-flex */
+  gap: 10px;
+  flex-shrink: 3;
+}
