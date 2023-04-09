@@ -18,6 +18,10 @@ import {MatButtonModule} from "@angular/material/button";
 import { StoreModule } from '@ngrx/store'
 import {authReducer} from './store/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
+import {MatCardModule} from "@angular/material/card";
+import {LoginEffects} from "./store/auth.effect";
+import {HttpClientModule} from "@angular/common/http";
+import {LoginService} from "./service/loginService";
 
 @NgModule({
   declarations: [
@@ -37,10 +41,13 @@ import { EffectsModule } from '@ngrx/effects';
     MatFormFieldModule,
     MatIconModule,
     MatButtonModule,
-    StoreModule.forRoot({ auth : authReducer }, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({auth: authReducer}, {}),
+    EffectsModule.forRoot([LoginEffects]),
+    HttpClientModule,
+    MatCardModule,
   ],
   providers: [
+    LoginService
   ],
   bootstrap: [AppComponent]
 })

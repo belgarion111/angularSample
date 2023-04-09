@@ -9,7 +9,7 @@ import {selectFeatureCount} from "../../store/auth.selector";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit  {
+export class LoginComponent   {
   auth$: Observable<string> = this.store.pipe(select(selectFeatureCount))
   username = '';
   password = '';
@@ -25,12 +25,14 @@ export class LoginComponent implements OnInit  {
   constructor(private store: Store<{ auth: Auth }>) {
   }
 
-  addStoreUser() {
+  resetForm() {
+    this.username = ''
+    this.password = ''
+  }
+
+
+  submit() {
     let authForm : Auth = {username:this.username , password : this.password} as Auth
     this.store.dispatch({type: '[User AddUser] User', auth : authForm});
   }
-
-  ngOnInit(): void {
-  }
-
 }

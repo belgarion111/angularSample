@@ -1,5 +1,9 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use serde::Deserialize;
+use hmac::{Hmac, Mac};
+use jwt::SignWithKey;
+use sha2::Sha256;
+use std::collections::BTreeMap;
 
 // I Post this object from Angular Ragnarok
 #[derive(Deserialize)]
@@ -9,9 +13,13 @@ struct AppState {
 }
 
 #[post("/login")]
-async fn login(data: web::Json<AppState>) -> String {
+async fn login(data: web::Json<AppState>) -> Result<impl Responder> {
     println!("Welcome {}!" ,data.username );
-    format!("Hello ")
+    let key: Hmac<Sha256> = Hmac::new_from_slice(b"ragnarokSecret")?;
+    let mut claims = BTreeMap::new();
+    claims.insert("sub", "someone");
+    let token_str = claims.sign_with_key(&key)?;
+    web::Json(data)
 }
 
 
